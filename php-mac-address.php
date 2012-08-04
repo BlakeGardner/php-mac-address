@@ -3,7 +3,6 @@
 class MAC_Address {
 
 	public $system_interface;
-	public $system_mac_address;
 	
 	/**
 	 * Regular expression for matching and validating a MAC address
@@ -21,7 +20,6 @@ class MAC_Address {
 			exit("\nYou must run this script from the command line\n\n");
 		}
 		$this->system_interface = $interface;
-		$this->system_mac_address = $this->get_current_mac_address();
 	}
 
 	/**
