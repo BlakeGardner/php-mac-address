@@ -31,9 +31,9 @@ class MAC_Address {
 	}
 
 	/**
-	 * Make sure a MAC adress string is in the correct format
+	 * Make sure the provided MAC address is in the correct format
 	 * @param string $mac
-	 * @return bool
+	 * @return bool TRUE if valid; otherwise FALSE
 	 */
 	public function validate_mac_address($mac) {
 		return (bool) preg_match("/^{$this->valid_mac}$/i", $mac);
