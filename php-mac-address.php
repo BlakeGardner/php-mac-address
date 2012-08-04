@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-
 class MAC_Address {
 
 	public $system_interface;
@@ -14,9 +12,6 @@ class MAC_Address {
 	public function __construct($interface) {
 		if (php_sapi_name() != "cli") { // make sure this script is ran from the command line
 			exit("\nYou must run this script from the command line\n\n");
-		}
-		if ($_ENV['LOGNAME'] != "root") { // make sure the user is root
-			exit("\nYou must be root to run this script. Use sudo or su.\n\n");
 		}
 		$this->system_interface = $interface;
 		$this->system_mac_address = $this->get_current_mac_address();
