@@ -1,8 +1,6 @@
 <?php
 
 class MAC_Address {
-
-	public $system_interface;
 	
 	/**
 	 * Regular expression for matching and validating a MAC address
@@ -11,16 +9,6 @@ class MAC_Address {
 	private $valid_mac = "([0-9A-F]{2}[:-]){5}([0-9A-F]{2})";
 	
 	public $mac_address_vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
-
-	/**
-	 * @return void
-	 */
-	public function __construct($interface) {
-		if (php_sapi_name() != "cli") { // make sure this script is ran from the command line
-			exit("\nYou must run this script from the command line\n\n");
-		}
-		$this->system_interface = $interface;
-	}
 
 	/**
 	 * @return string generated MAC address
@@ -64,9 +52,9 @@ class MAC_Address {
 	/**
 	 * @return string Systems current MAC address
 	 */
-	public function get_current_mac_address() {
-		if (!empty($this->system_interface)) {
-			$ifconfig = $this->run_command("ifconfig {$this->system_interface}");
+	public function get_current_mac_address($interface) {
+		if (!empty($interface)) {
+			$ifconfig = $this->run_command("ifconfig {$interface}");
 			preg_match("/{$this->valid_mac}/i", $ifconfig, $ifconfig);
 			return trim(strtoupper($ifconfig[0]));
 		}
@@ -76,15 +64,15 @@ class MAC_Address {
 	 * @param string $mac
 	 * @return bool Returns true on success else returns false
 	 */
-	public function set_fake_mac_address($mac = "") {
+	public function set_fake_mac_address($mac = "", $interface) {
 		if (empty($mac)) {
 			$new_mac = $this->generate_mac_address();
 		} else {
 			$new_mac = $mac;
 		}
-		$this->run_command("ifconfig {$this->system_interface} down");
-		$this->run_command("ifconfig {$this->system_interface} hw ether {$new_mac}");
-		$this->run_command("ifconfig {$this->system_interface} up");
+		$this->run_command("ifconfig {$interface} down");
+		$this->run_command("ifconfig {$interface} hw ether {$new_mac}");
+		$this->run_command("ifconfig {$interface} up");
 		if ($this->get_current_mac_address() == $new_mac) {
 			return true;
 		} else {
