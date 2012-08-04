@@ -8,7 +8,11 @@ class MAC_Address {
 	 */
 	private $valid_mac = "([0-9A-F]{2}[:-]){5}([0-9A-F]{2})";
 	
-	public $mac_address_vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
+	/**
+	 * An array of valid MAC address characters
+	 * @var array
+	 */
+	private $mac_address_vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
 
 	/**
 	 * @return string generated MAC address
