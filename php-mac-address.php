@@ -4,6 +4,13 @@ class MAC_Address {
 
 	public $system_interface;
 	public $system_mac_address;
+	
+	/**
+	 * Regular expression for matching and validating a MAC address
+	 * @var string
+	 */
+	private $valid_mac = "([0-9A-F]{2}[:-]){5}([0-9A-F]{2})";
+	
 	public $mac_address_vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
 
 	/**
@@ -39,19 +46,7 @@ class MAC_Address {
 	 * @return bool
 	 */
 	public function validate_mac_address($mac) {
-		if (!empty($mac)) {
-			$mac = str_replace(":", "", $mac);
-			$mac = str_split($mac);
-			if (count($mac) == 12) {
-				foreach ($mac as $value) {
-					if (!in_array($value, $this->mac_address_vals)) {
-						return false;
-					}
-				}
-				return true;
-			}
-		}
-		return false;
+		return (bool) preg_match("/^{$this->valid_mac}$/i", $mac);
 	}
 
 	/**
@@ -73,8 +68,8 @@ class MAC_Address {
 	 */
 	public function get_current_mac_address() {
 		if (!empty($this->system_interface)) {
-			$ifconfig = $this->run_command("ifconfig | grep {$this->system_interface}");
-			preg_match("/((?:(\d{1,2}|[a-fA-F]{1,2}){2})(?::|-*)){6}/", $ifconfig, $ifconfig);
+			$ifconfig = $this->run_command("ifconfig {$this->system_interface}");
+			preg_match("/{$this->valid_mac}/i", $ifconfig, $ifconfig);
 			return trim(strtoupper($ifconfig[0]));
 		}
 	}
