@@ -43,7 +43,7 @@ class MAC_Address {
 	 * @param string $cmd
 	 * @return string output from command that was ran
 	 */
-	public function run_command($cmd) {
+	protected function run_command($cmd) {
 		if (!empty($cmd)) {
 			ob_start();
 			system($cmd);
