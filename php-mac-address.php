@@ -40,17 +40,11 @@ class MAC_Address {
 	}
 
 	/**
-	 * @param string $cmd
+	 * @param string $command
 	 * @return string output from command that was ran
 	 */
-	protected function run_command($cmd) {
-		if (!empty($cmd)) {
-			ob_start();
-			system($cmd);
-			$output = ob_get_contents();
-			ob_end_clean();
-			return $output;
-		}
+	protected function run_command($command) {
+		return shell_exec($command);
 	}
 
 	/**
