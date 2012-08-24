@@ -86,12 +86,15 @@ class MAC_Address {
 	/**
 	 * Get the system's current MAC address
 	 * @param string $interface The name of the interface e.g. eth0
-	 * @return string Systems current MAC address
+	 * @return string|bool Systems current MAC address; otherwise FALSE on error
 	 */
 	public static function get_current_mac_address($interface) {
 		$ifconfig = self::run_command("ifconfig {$interface}");
 		preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
-		return trim(strtoupper($ifconfig[0]));
+		if (isset($ifconfig[0])) {
+			return trim(strtoupper($ifconfig[0]));
+		}
+		return FALSE;
 	}
 
 }
