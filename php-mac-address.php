@@ -84,14 +84,14 @@ class MAC_Address {
 	}
 
 	/**
+	 * Get the system's current MAC address
+	 * @param string $interface The name of the interface e.g. eth0
 	 * @return string Systems current MAC address
 	 */
 	public static function get_current_mac_address($interface) {
-		if (!empty($interface)) {
-			$ifconfig = self::run_command("ifconfig {$interface}");
-			preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
-			return trim(strtoupper($ifconfig[0]));
-		}
+		$ifconfig = self::run_command("ifconfig {$interface}");
+		preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
+		return trim(strtoupper($ifconfig[0]));
 	}
 
 }
