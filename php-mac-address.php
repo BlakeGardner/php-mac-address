@@ -39,9 +39,13 @@ class MAC_Address {
 		self::run_command("ifconfig {$interface} down");
 		self::run_command("ifconfig {$interface} hw ether {$mac}");
 		self::run_command("ifconfig {$interface} up");
+                
+                // TODO: figure out if there is a better method of doing this
+                // run DHCP client to grab a new IP address
+                self::run_command("dhclient {$interface}");
 
 		// run a test to see if the operation was a success
-		if (self::get_current_mac_address() == $mac) {
+		if (self::get_current_mac_address($interface) == $mac) {
 			return TRUE;
 		}
 
