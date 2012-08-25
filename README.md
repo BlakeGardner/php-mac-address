@@ -13,31 +13,26 @@ wireless security audits.
   * Get the current system’s MAC address
   * Set or “spoof” any MAC address you want
 
-##Examples
+##Usage
 
 ``` php
-
 // require the class
 require_once 'php-mac-address.php';
 
-// initialize the class
-$mac = new MAC_Address;
-
-// get the mac address of the 'en1' interface
-echo "Current MAC address: " . $mac->get_current_mac_address('en1') . "\n\n";
+// get the mac address of the eth0 interface
+MAC_Address::get_current_mac_address('eth0');
 
 // generate a random mac address
-echo "Generated MAC address: " . $mac->generate_mac_address() . "\n\n";
+MAC_Address::generate_mac_address();
 
-$valid_mac    = '00-B0-D0-86-BB-F7';
-$invalid_mac  = '00-B0-D0-86-BB-FG';
+// validate an MAC address
+MAC_Address::validate_mac_address('00-B0-D0-86-BB-F7');
 
-echo "Validating {$valid_mac}... Result: ";
-var_dump($mac->validate_mac_address($valid_mac));
+// set a randomly generated MAC address on the eth0 interface
+MAC_Address::set_fake_mac_address('eth0');
 
-echo "\n";
-
-echo "Validating {$invalid_mac}... Result: ";
-var_dump($mac->validate_mac_address($invalid_mac));
-
+// set a specific MAC address on the eth0 interface
+MAC_Address::set_fake_mac_address('eth0', '00:E4:01:2C:79:DA');
 ```
+
+For more see the example.php file.
