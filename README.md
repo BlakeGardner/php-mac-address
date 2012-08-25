@@ -35,4 +35,11 @@ MAC_Address::set_fake_mac_address('eth0');
 MAC_Address::set_fake_mac_address('eth0', '00:E4:01:2C:79:DA');
 ```
 
-For more see the example.php file.
+For more see the example.php file. You can run the example on the command line
+as root. `php example.php`
+
+##Planned Features
+
+  * List all interfaces on the system
+  * OS detection
+  * Suppress errors on the command line
