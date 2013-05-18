@@ -10,7 +10,8 @@ namespace BlakeGardner;
  * @copyright Copyright (c) 2012, Blake Gardner
  * @license MIT License (see License.txt)
  */
-class MacAddress {
+class MacAddress
+{
 
     /**
      * Regular expression for matching and validating a MAC address
@@ -30,7 +31,8 @@ class MacAddress {
      * @param string $mac The new MAC address to be set to the interface
      * @return bool Returns true on success else returns false
      */
-    public static function setFakeMacAddress($interface, $mac = NULL) {
+    public static function setFakeMacAddress($interface, $mac = NULL)
+    {
 
         // if a valid mac address was not passed then generate one
         if (!self::validateMacAddress($mac)) {
@@ -58,7 +60,8 @@ class MacAddress {
     /**
      * @return string generated MAC address
      */
-    public static function generateMacAddress() {
+    public static function generateMacAddress()
+    {
         $vals = self::$mac_address_vals;
         if (count($vals) >= 1) {
             $mac = array("00"); // set first two digits manually
@@ -76,7 +79,8 @@ class MacAddress {
      * @param string $mac
      * @return bool TRUE if valid; otherwise FALSE
      */
-    public static function validateMacAddress($mac) {
+    public static function validateMacAddress($mac) 
+    {
         return (bool) preg_match("/^" . self::$valid_mac . "$/i", $mac);
     }
 
@@ -85,7 +89,8 @@ class MacAddress {
      * @param string $command
      * @return string Output from command that was ran
      */
-    protected static function runCommand($command) {
+    protected static function runCommand($command)
+    {
         return shell_exec($command);
     }
 
@@ -94,7 +99,8 @@ class MacAddress {
      * @param string $interface The name of the interface e.g. eth0
      * @return string|bool Systems current MAC address; otherwise FALSE on error
      */
-    public static function getCurrentMacAddress($interface) {
+    public static function getCurrentMacAddress($interface)
+    {
         $ifconfig = self::runCommand("ifconfig {$interface}");
         preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
         if (isset($ifconfig[0])) {
