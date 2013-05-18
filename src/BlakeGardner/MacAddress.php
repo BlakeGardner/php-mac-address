@@ -54,7 +54,7 @@ class MacAddress
         }
 
         // by default just return false
-        return FALSE;
+        return false;
     }
 
     /**
@@ -77,7 +77,7 @@ class MacAddress
     /**
      * Make sure the provided MAC address is in the correct format
      * @param string $mac
-     * @return bool TRUE if valid; otherwise FALSE
+     * @return bool TRUE if valid; otherwise false
      */
     public static function validateMacAddress($mac) 
     {
@@ -97,7 +97,7 @@ class MacAddress
     /**
      * Get the system's current MAC address
      * @param string $interface The name of the interface e.g. eth0
-     * @return string|bool Systems current MAC address; otherwise FALSE on error
+     * @return string|bool Systems current MAC address; otherwise false on error
      */
     public static function getCurrentMacAddress($interface)
     {
@@ -106,7 +106,7 @@ class MacAddress
         if (isset($ifconfig[0])) {
             return trim(strtoupper($ifconfig[0]));
         }
-        return FALSE;
+        return false;
     }
 
 }
