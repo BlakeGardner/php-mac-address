@@ -30,24 +30,24 @@ class MacAddress {
 	 * @param string $mac The new MAC address to be set to the interface
 	 * @return bool Returns true on success else returns false
 	 */
-	public static function set_fake_mac_address($interface, $mac = NULL) {
+	public static function setFakeMacAddress($interface, $mac = NULL) {
 
 		// if a valid mac address was not passed then generate one
-		if (!self::validate_mac_address($mac)) {
-			$mac = self::generate_mac_address();
+		if (!self::validateMacAddress($mac)) {
+			$mac = self::generateMacAddress();
 		}
 
 		// bring the interface down, set the new mac, bring it back up
-		self::run_command("ifconfig {$interface} down");
-		self::run_command("ifconfig {$interface} hw ether {$mac}");
-		self::run_command("ifconfig {$interface} up");
+		self::runCommand("ifconfig {$interface} down");
+		self::runCommand("ifconfig {$interface} hw ether {$mac}");
+		self::runCommand("ifconfig {$interface} up");
                 
                 // TODO: figure out if there is a better method of doing this
                 // run DHCP client to grab a new IP address
-                self::run_command("dhclient {$interface}");
+                self::runCommand("dhclient {$interface}");
 
 		// run a test to see if the operation was a success
-		if (self::get_current_mac_address($interface) == $mac) {
+		if (self::getCurrentMacAddress($interface) == $mac) {
 			return TRUE;
 		}
 
@@ -58,7 +58,7 @@ class MacAddress {
 	/**
 	 * @return string generated MAC address
 	 */
-	public static function generate_mac_address() {
+	public static function generateMacAddress() {
 		$vals = self::$mac_address_vals;
 		if (count($vals) >= 1) {
 			$mac = array("00"); // set first two digits manually
@@ -76,7 +76,7 @@ class MacAddress {
 	 * @param string $mac
 	 * @return bool TRUE if valid; otherwise FALSE
 	 */
-	public static function validate_mac_address($mac) {
+	public static function validateMacAddress($mac) {
 		return (bool) preg_match("/^" . self::$valid_mac . "$/i", $mac);
 	}
 
@@ -85,7 +85,7 @@ class MacAddress {
 	 * @param string $command
 	 * @return string Output from command that was ran
 	 */
-	protected static function run_command($command) {
+	protected static function runCommand($command) {
 		return shell_exec($command);
 	}
 
@@ -94,8 +94,8 @@ class MacAddress {
 	 * @param string $interface The name of the interface e.g. eth0
 	 * @return string|bool Systems current MAC address; otherwise FALSE on error
 	 */
-	public static function get_current_mac_address($interface) {
-		$ifconfig = self::run_command("ifconfig {$interface}");
+	public static function getCurrentMacAddress($interface) {
+		$ifconfig = self::runCommand("ifconfig {$interface}");
 		preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
 		if (isset($ifconfig[0])) {
 			return trim(strtoupper($ifconfig[0]));
