@@ -1,5 +1,7 @@
 <?php
 
+namespace BlakeGardner;
+
 /**
  * This class allows you to preform various operations with
  * Media Access Control (MAC addresses) on UNIX type systems.
@@ -8,7 +10,7 @@
  * @copyright Copyright (c) 2012, Blake Gardner
  * @license MIT License (see License.txt)
  */
-class MAC_Address {
+class MacAddress {
 
 	/**
 	 * Regular expression for matching and validating a MAC address
