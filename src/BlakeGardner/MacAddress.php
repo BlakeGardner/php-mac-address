@@ -23,7 +23,10 @@ class MacAddress
      * An array of valid MAC address characters
      * @var array
      */
-    private static $mac_address_vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
+    private static $mac_address_vals = array(
+        "0", "1", "2", "3", "4", "5", "6", "7",
+        "8", "9", "A", "B", "C", "D", "E", "F"
+     );
 
     /**
      * Change the MAC address of the network interface specified
