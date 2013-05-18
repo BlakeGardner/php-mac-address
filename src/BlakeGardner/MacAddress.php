@@ -50,7 +50,7 @@ class MacAddress
 
         // run a test to see if the operation was a success
         if (self::getCurrentMacAddress($interface) == $mac) {
-            return TRUE;
+            return true;
         }
 
         // by default just return false
@@ -77,7 +77,7 @@ class MacAddress
     /**
      * Make sure the provided MAC address is in the correct format
      * @param string $mac
-     * @return bool TRUE if valid; otherwise false
+     * @return bool true if valid; otherwise false
      */
     public static function validateMacAddress($mac) 
     {
