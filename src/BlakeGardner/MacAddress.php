@@ -31,7 +31,7 @@ class MacAddress
      * @param string $mac The new MAC address to be set to the interface
      * @return bool Returns true on success else returns false
      */
-    public static function setFakeMacAddress($interface, $mac = NULL)
+    public static function setFakeMacAddress($interface, $mac = null)
     {
 
         // if a valid mac address was not passed then generate one
