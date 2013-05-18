@@ -79,7 +79,7 @@ class MacAddress
      * @param string $mac
      * @return bool true if valid; otherwise false
      */
-    public static function validateMacAddress($mac) 
+    public static function validateMacAddress($mac)
     {
         return (bool) preg_match("/^" . self::$valid_mac . "$/i", $mac);
     }
@@ -108,5 +108,4 @@ class MacAddress
         }
         return false;
     }
-
 }
