@@ -1,0 +1,13 @@
+{
+    "name": "BlakeGardner/MacAddress",
+    "description": "Get, validate and generate MAC addresses.",
+    "authors": [
+        {
+            "name": "Blake Gardner",
+            "email": "blakegardner@cox.net"
+        }
+    ],
+    "require": {
+
+    }
+}
