@@ -1,6 +1,7 @@
 {
     "name": "BlakeGardner/MacAddress",
     "description": "Get, validate and generate MAC addresses.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Blake Gardner",
@@ -8,6 +9,11 @@
         }
     ],
     "require": {
-
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "BlakeGardner\\MacAddress": "src/"
+        }
     }
 }
