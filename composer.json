@@ -2,7 +2,7 @@
     "name": "blake-gardner/mac-address",
     "description": "Get, validate and generate MAC addresses.",
     "license": "MIT",
-    "keywords": ["MAC", "Address",, "IP", "ifconfig", "DHCP"],
+    "keywords": ["MAC", "Address", "IP", "ifconfig", "DHCP"],
     "authors": [
         {
             "name": "Blake Gardner",
