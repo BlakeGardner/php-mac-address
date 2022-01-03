@@ -29,23 +29,46 @@ class MacAddress
      );
 
     /**
+     * Path where ifconfig will be searched by default 
+     */
+    public static function getIfconfig() {
+        $paths = array(
+            "/bin/ifconfig",
+            "/sbin/ifconfig",
+            "/usr/bin/ifconfig",
+            "/usr/sbin/ifconfig"
+        );
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                return $path;
+            }
+        }
+        return "ifconfig";
+    }
+
+    /**
      * Change the MAC address of the network interface specified
      * @param string $interface Name of the interface e.g. eth0
      * @param string $mac The new MAC address to be set to the interface
      * @return bool Returns true on success else returns false
      */
-    public static function setFakeMacAddress($interface, $mac = null)
+    public static function setFakeMacAddress($interface, $mac = null, $ifconfig = null)
     {
 
         // if a valid mac address was not passed then generate one
         if (!self::validateMacAddress($mac)) {
             $mac = self::generateMacAddress();
         }
+        
+        // if ifconfig is not defined, the default value is used. 
+        if (is_null($ifconfig)) {
+            $ifconfig = self::getIfconfig();
+        }
 
         // bring the interface down, set the new mac, bring it back up
-        self::runCommand("ifconfig {$interface} down");
-        self::runCommand("ifconfig {$interface} hw ether {$mac}");
-        self::runCommand("ifconfig {$interface} up");
+        self::runCommand($ifconfig. " {$interface} down");
+        self::runCommand($ifconfig. " {$interface} hw ether {$mac}");
+        self::runCommand($ifconfig. " {$interface} up");
 
         // TODO: figure out if there is a better method of doing this
         // run DHCP client to grab a new IP address
@@ -102,9 +125,14 @@ class MacAddress
      * @param string $interface The name of the interface e.g. eth0
      * @return string|bool Systems current MAC address; otherwise false on error
      */
-    public static function getCurrentMacAddress($interface)
+    public static function getCurrentMacAddress($interface, $ifconfig = null)
     {
-        $ifconfig = self::runCommand("ifconfig {$interface}");
+         // if ifconfig is not defined, the default value is used. 
+         if (is_null($ifconfig)) {
+            $ifconfig = self::getIfconfig();
+        }
+
+        $ifconfig = self::runCommand($ifconfig . " {$interface}");
         preg_match("/" . self::$valid_mac . "/i", $ifconfig, $ifconfig);
         if (isset($ifconfig[0])) {
             return trim(strtoupper($ifconfig[0]));

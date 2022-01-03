@@ -36,6 +36,10 @@ var_dump(MacAddress::setFakeMacAddress('eth0'));
 
 // set a specific MAC address on the eth0 interface
 var_dump(MacAddress::setFakeMacAddress('eth0', '00:E4:01:2C:79:DA'));
+
+// get the mac address of the eth0 interface using the ifconfig path that we define 
+var_dump(MacAddress::getCurrentMacAddress('eth0', '/usr/local/sbin/ifconfig'));
+echo "\n";
 ```
 
 For more see the example.php file. You can run the example on the command line
